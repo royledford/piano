@@ -6,7 +6,16 @@
 
 import { ReactNode } from 'react'
 
-export type KeyMapType = { note: string; hertz: number; keyboard: string }
+export type KeySemitonePosition = {
+  position?: 'left' | 'center' | 'right' | undefined
+}
+
+export type KeyMapType = {
+  note: string
+  hertz: number
+  keyboard: string
+} & KeySemitonePosition
+
 export type OnKeyHandler = (
   e: React.MouseEvent<HTMLButtonElement>,
   map: KeyMapType,

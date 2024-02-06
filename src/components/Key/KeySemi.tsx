@@ -1,10 +1,6 @@
 import { ReactElement, ReactNode, useMemo } from 'react'
 import { Button as ShadButton } from '@/components/ui/button'
-import { MusicKeyProps } from '@/Types'
-
-type KeySemiProps = MusicKeyProps & {
-  position?: 'left' | 'center' | 'right'
-}
+import { MusicKeyProps, KeySemitonePosition } from '@/Types'
 
 // Display a full sized key
 export default function KeySemi({
@@ -17,7 +13,7 @@ export default function KeySemi({
   className = '',
   style = {},
   children,
-}: KeySemiProps): ReactElement {
+}: MusicKeyProps & KeySemitonePosition): ReactElement {
   const width = position === 'center' ? 'w-[70px]' : 'w-[105px]'
   const keyFlexPosition = useMemo(() => {
     if (position === 'center') return 'justify-center'
