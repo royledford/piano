@@ -5,14 +5,22 @@ type Props = {
   children?: ReactNode | undefined
 }
 
+type oscillator = any
+
+type OscsStorage = {
+  note: string
+  banks: oscillator[]
+}
+
 type AudioType = any
 
 const WebAudioContext = createContext<AudioType>(undefined)
+const unisonWidth = 10
 
 // Define the provider that will be used to wrap in the app.
 const WebAudioProvider = ({ children }: Props): AudioType => {
   const [actx, setActx] = useState<any>()
-  const [oscs, setOscs] = useState<any>([])
+  const [oscs, setOscs] = useState<OscsStorage[]>([])
 
   const play = (keyMap: KeyMapType) => {
     let context = actx
@@ -25,20 +33,20 @@ const WebAudioProvider = ({ children }: Props): AudioType => {
       setActx(context)
     }
 
-    // check that it's not playing
+    // if currently playing, ignore
     if (getOsc(oscs, keyMap)) return null
-    console.log('keyMap', keyMap) // TODO: remove this
 
-    const osc = playNote(context, keyMap)
-    setOscs((oscs: any) => [...oscs, osc])
+    const oscBank = playNote(context, keyMap)
+    setOscs((oscs: any) => [...oscs, oscBank])
   }
 
   const stop = (keyMap: KeyMapType) => {
-    console.log('oscs', oscs) // TODO: remove this
-
     const currentOsc = getOsc(oscs, keyMap)
-    const remainingOsc = oscs.filter((v) => v.key !== keyMap.keyboard)
-    currentOsc.stop()
+    const remainingOsc = oscs.filter((v) => v.note !== keyMap.note)
+
+    currentOsc.banks.forEach((o: any) => {
+      o.stop()
+    })
 
     setOscs((oscs: any) => [...remainingOsc])
   }
@@ -51,20 +59,17 @@ const WebAudioProvider = ({ children }: Props): AudioType => {
 }
 
 function playNote(actx: any, keyMap: KeyMapType): any {
-  let oscBank = []
+  let osc: OscsStorage = { note: keyMap.note, banks: [] }
 
-  oscBank[0] = createOscillator(actx, keyMap.hertz, 0)
-  // const osc = actx.createOscillator()
-  // osc.type = 'sawtooth'
-  // osc.frequency.value = keyMap.hertz
-  // osc.key = keyMap.keyboard
-  // osc.connect(actx.destination)
-  // osc.start()
-  return oscBank[0]
+  osc.banks[0] = createOscillator(actx, keyMap.hertz, 0)
+  osc.banks[1] = createOscillator(actx, keyMap.hertz, unisonWidth)
+  osc.banks[2] = createOscillator(actx, keyMap.hertz, -unisonWidth)
+
+  return osc
 }
 
 function getOsc(oscs: any, map: KeyMapType): any {
-  const osc = oscs.filter((v: any) => v.key === map.keyboard)
+  const osc = oscs.filter((v: any) => v.note === map.note)
   return osc ? osc[0] : null
 }
 

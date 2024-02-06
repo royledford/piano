@@ -6,7 +6,7 @@
 
 import { ReactNode } from 'react'
 
-export type KeyMapType = { hertz: number; keyboard: string }
+export type KeyMapType = { note: string; hertz: number; keyboard: string }
 export type OnKeyHandler = (
   e: React.MouseEvent<HTMLButtonElement>,
   map: KeyMapType,
@@ -14,7 +14,8 @@ export type OnKeyHandler = (
 
 export interface MusicKeyProps {
   highlight?: boolean
-  keyMap: { hertz: number; keyboard: string }
+  keyMap: KeyMapType
+  keyDown: boolean
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined
   onMouseDown: OnKeyHandler
   onMouseUp: OnKeyHandler

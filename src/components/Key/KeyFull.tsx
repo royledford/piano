@@ -4,10 +4,12 @@ import { MusicKeyProps } from '@/Types'
 
 // Display a full sized key
 export default function KeyFull({
+  name,
   onClick,
   keyMap,
   onMouseDown,
   onMouseUp,
+  keyDown,
   className = '',
   highlight = false,
   style = {},
@@ -20,6 +22,7 @@ export default function KeyFull({
       border: 'border-white',
       hover: 'hover:bg-[#c4c0be]',
       pressed: 'group-active:shadow-[-3px_-3px_3px_#fff,3px_3px_3px_#7D7777]',
+      down: 'shadow-[-3px_-3px_3px_#fff,3px_3px_3px_#7D7777]',
     },
     highlight: {
       bgColor: 'bg-[#D54C2B]',
@@ -28,6 +31,7 @@ export default function KeyFull({
       hover: 'hover:bg-[#c24527]',
       pressed:
         'group-active:shadow-[-3px_-3px_3px_#f55731,3px_3px_3px_#b54125]',
+      down: 'shadow-[-3px_-3px_3px_#f55731,3px_3px_3px_#b54125]',
     },
   }
 
@@ -53,7 +57,11 @@ export default function KeyFull({
       <div
         className={`${selectedColor.hover} ${selectedColor.bgColor} overflow-hidden flex justify-center items-center p-[12px] h-full w-full rounded-sm`}>
         <div
-          className={`${selectedColor.bgColor} ${selectedColor.dropShadow} ${selectedColor.pressed} ${selectedColor.border} border  rounded-full flex justify-center items-center h-full w-full`}>
+          className={`${keyDown ? selectedColor.down : ''}
+          ${selectedColor.bgColor} ${selectedColor.dropShadow}
+          ${selectedColor.pressed}
+          ${selectedColor.border}
+          border  rounded-full flex justify-center items-center h-full w-full`}>
           {display}
         </div>
       </div>
