@@ -73,7 +73,9 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
       dropShadow: {
-        up: ['-7px -7px 12px #fff', '7px 7px 12px #7D7777'],
+        smNormal: ['-4px -4px 4px #fff', '4px 4px 4px #555'],
+        lgNormal: ['-7px -7px 12px #fff', '7px 7px 12px #7D7777'],
+        pressed: ['-3px -3px 3px #fff', '3px 3px 3px #555'],
       },
     },
   },

@@ -1,31 +1,41 @@
 import { ReactElement, ReactNode } from 'react'
-// import styles from './Button.module.css'
-import { Button as ShadButton } from '@/components/ui/button'
+import KeyFull from './KeyFull'
+import KeySemi from './KeySemi'
+import { MusicKeyProps } from '@/Types'
 
-type AppProps = {
-  onClick?: () => void
-  className?: string
-  style?: {}
-  children?: ReactNode
+type KeyProps = MusicKeyProps & {
+  type?: 'fullTone' | 'semiTone'
+  position?: 'left' | 'center' | 'right' // only required for semi-tone keys
 }
 
-// Display a calculator button
-export default function Button({
-  className = '',
-  style = {},
-  onClick,
-  children,
-}: AppProps): ReactElement {
+// Display a keyboard key
+export default function Key(props: KeyProps): ReactElement {
+  if (props.type === 'fullTone') {
+    return (
+      <KeyFull
+        highlight={props.highlight}
+        keyMap={props.keyMap}
+        onClick={props.onClick}
+        onMouseDown={props.onMouseDown}
+        onMouseUp={props.onMouseUp}
+        className={props.className}
+        style={props.style}>
+        {props.children}
+      </KeyFull>
+    )
+  }
+
   return (
-    <ShadButton
-      className={`${className} border-2  border-black  p-0 flex w-[70px] h-[145px] rounded-none bg-black`}
-      style={style}
-      onClick={onClick}>
-      <div className="overflow-hidden flex justify-center items-center p-[12px] h-full w-full rounded-sm bg-[#D5D1D0]">
-        <div className="bg-[#D5D1D0] drop-shadow-up rounded-full flex justify-center items-center h-full w-full ">
-          {children}
-        </div>
-      </div>
-    </ShadButton>
+    <KeySemi
+      highlight={props.highlight}
+      position={props.position}
+      keyMap={props.keyMap}
+      onClick={props.onClick}
+      onMouseDown={props.onMouseDown}
+      onMouseUp={props.onMouseUp}
+      className={props.className}
+      style={props.style}>
+      {props.children}
+    </KeySemi>
   )
 }

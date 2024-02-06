@@ -1,8 +1,13 @@
 import './App.css'
-import Calculator from '@/pages/Calculator/Keyboard'
+import Keyboard from '@/pages/Keyboard/Keyboard'
+import { WebAudioProvider } from './providers/WebAudioProvider/webAudioProvider'
 
 function App() {
-  return <Calculator />
+  return (
+    <WebAudioProvider>
+      <Keyboard />
+    </WebAudioProvider>
+  )
 }
 
 export default App
