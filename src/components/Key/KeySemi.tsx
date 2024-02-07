@@ -8,7 +8,7 @@ import { isPressed } from './key-utils'
 export default function KeySemi({
   position = 'center',
   highlight = false,
-  keyMap,
+  tone,
   onMouseDown,
   onMouseUp,
   onClick,
@@ -47,17 +47,17 @@ export default function KeySemi({
   const { pressedKeys } = useKeyboard()
 
   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
-    onMouseDown(e, keyMap)
+    onMouseDown(e, tone)
   }
 
   const handleMouseUp = (e: React.MouseEvent<HTMLButtonElement>) => {
-    onMouseUp(e, keyMap)
+    onMouseUp(e, tone)
   }
 
   const selectedColor = highlight ? styles.highlight : styles.normal
-  const keyDown = isPressed(pressedKeys, keyMap.note) ? selectedColor.down : ''
+  const keyDown = isPressed(pressedKeys, tone.note) ? selectedColor.down : ''
 
-  const display = useMemo(() => keyMap.keyboard, [])
+  const display = useMemo(() => tone.keyboard, [])
 
   return (
     <ShadButton

@@ -7,7 +7,7 @@ import { isPressed } from './key-utils'
 // Display a full sized key
 export default function KeyFull({
   onClick,
-  keyMap,
+  tone,
   onMouseDown,
   onMouseUp,
   className = '',
@@ -38,21 +38,21 @@ export default function KeyFull({
   const { pressedKeys } = useKeyboard()
 
   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
-    onMouseDown(e, keyMap)
+    onMouseDown(e, tone)
   }
 
   const handleMouseUp = (e: React.MouseEvent<HTMLButtonElement>) => {
-    onMouseUp(e, keyMap)
+    onMouseUp(e, tone)
   }
 
   const selectedColor = highlight ? styles.highlight : styles.normal
-  const keyDown = isPressed(pressedKeys, keyMap.note) ? selectedColor.down : ''
+  const keyDown = isPressed(pressedKeys, tone.note) ? selectedColor.down : ''
 
-  const display = useMemo(() => keyMap.keyboard, [])
+  const display = useMemo(() => tone.keyboard, [])
 
   return (
     <ShadButton
-      className={`${className} group border-2  border-black  p-0 flex w-[70px] h-[145px] rounded-none bg-black text-black`}
+      className={`${className} group border-2  border-black  p-0 flex w-[70px] h-[140px] rounded-none bg-black text-black`}
       style={style}
       onClick={onClick}
       onMouseDown={handleMouseDown}

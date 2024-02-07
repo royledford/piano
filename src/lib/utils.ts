@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const keyMap: Record<string, KeyMapType> = {
+export const toneMap: Record<string, KeyMapType> = {
   F3: { note: 'F3', hertz: 174.61, keyboard: 'a' },
   Gb3: { note: 'Gb3', hertz: 185.0, keyboard: 'w', position: 'left' },
   G3: { note: 'G3', hertz: 196.0, keyboard: 's' },

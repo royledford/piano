@@ -10,7 +10,7 @@ export type KeySemitonePosition = {
   position?: 'left' | 'center' | 'right' | undefined
 }
 
-export type KeyMapType = {
+export type ToneMapType = {
   note: string
   hertz: number
   keyboard: string
@@ -18,13 +18,12 @@ export type KeyMapType = {
 
 export type OnKeyHandler = (
   e: React.MouseEvent<HTMLButtonElement>,
-  map: KeyMapType,
+  map: ToneMapType,
 ) => void
 
 export interface MusicKeyProps {
   highlight?: boolean
-  keyMap: KeyMapType
-  keyDown: boolean
+  tone: ToneMapType
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined
   onMouseDown: OnKeyHandler
   onMouseUp: OnKeyHandler
