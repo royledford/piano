@@ -1,15 +1,15 @@
 import { ReactElement, ReactNode, useMemo } from 'react'
 import { Button as ShadButton } from '@/components/ui/button'
 import { MusicKeyProps } from '@/Types'
+import { useKeyboard } from '@/providers/keyboard-provider'
+import { isPressed } from './key-utils'
 
 // Display a full sized key
 export default function KeyFull({
-  name,
   onClick,
   keyMap,
   onMouseDown,
   onMouseUp,
-  keyDown,
   className = '',
   highlight = false,
   style = {},
@@ -35,6 +35,8 @@ export default function KeyFull({
     },
   }
 
+  const { pressedKeys } = useKeyboard()
+
   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
     onMouseDown(e, keyMap)
   }
@@ -44,6 +46,7 @@ export default function KeyFull({
   }
 
   const selectedColor = highlight ? styles.highlight : styles.normal
+  const keyDown = isPressed(pressedKeys, keyMap.note) ? selectedColor.down : ''
 
   const display = useMemo(() => keyMap.keyboard, [])
 
@@ -53,7 +56,8 @@ export default function KeyFull({
       style={style}
       onClick={onClick}
       onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}>
+      onMouseUp={handleMouseUp}
+      tabIndex={-1}>
       <div
         className={`${selectedColor.hover} ${selectedColor.bgColor} overflow-hidden flex justify-center items-center p-[12px] h-full w-full rounded-sm`}>
         <div
@@ -61,7 +65,8 @@ export default function KeyFull({
           ${selectedColor.bgColor} ${selectedColor.dropShadow}
           ${selectedColor.pressed}
           ${selectedColor.border}
-          border  rounded-full flex justify-center items-center h-full w-full`}>
+          ${keyDown}
+          border  rounded-full flex justify-center items-center h-full w-full focus-visible:outline-none`}>
           {display}
         </div>
       </div>

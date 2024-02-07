@@ -5,16 +5,13 @@ import Key from '@/components/Key/Key'
 import { keyMap } from '@/lib/utils'
 import { OnKeyHandler, KeyMapType } from '@/Types'
 import { useActx } from '@/providers/WebAudioProvider/webAudioProvider'
+import { useKeyboard } from '@/providers/keyboard-provider'
 
 export default function Keyboard() {
   const [actx, play, stop] = useActx()
-  const [pressedKeys, setPressedKeys] = useState<string[]>([])
-  console.log('pressedKeys', pressedKeys) // TODO: remove this
+  const { pressedKeys, setPressedKeys } = useKeyboard()
 
-  const isPressed = (note: string) => {
-    return pressedKeys.includes(note)
-  }
-
+  // TODO: Fix how pressed keys works, just clean up and add helper functions
   const handleKeyPlay: OnKeyHandler = (e, map) => {
     setPressedKeys([...pressedKeys, map.note])
     play(map)
@@ -32,7 +29,9 @@ export default function Keyboard() {
     )
 
     const key = keyMap[map[0]]
+
     if (key) {
+      setPressedKeys([...pressedKeys, key.note])
       play(key)
     }
   }
@@ -41,6 +40,12 @@ export default function Keyboard() {
     const map = Object.keys(keyMap).filter(
       (key) => keyMap[key].keyboard === e.key,
     )
+
+    // If pressed key doesn't exist in keyMap, ignore
+    if (map.length === 0) return
+
+    const updated = pressedKeys.filter((key) => key !== map[0])
+    setPressedKeys([...updated])
 
     stop(keyMap[map[0]])
   }
@@ -69,7 +74,6 @@ export default function Keyboard() {
                     keyMap={keyMap[key]}
                     onMouseDown={handleKeyPlay}
                     onMouseUp={handleKeyStop}
-                    keyDown={isPressed(key)}
                   />
                 )
               }
@@ -86,7 +90,6 @@ export default function Keyboard() {
                     keyMap={keyMap[key]}
                     onMouseDown={handleKeyPlay}
                     onMouseUp={handleKeyStop}
-                    keyDown={isPressed(key)}
                   />
                 )
               }
