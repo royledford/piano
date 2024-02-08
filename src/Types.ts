@@ -18,7 +18,7 @@ export type ToneMapType = {
 
 export type OnKeyHandler = (
   e: React.MouseEvent<HTMLButtonElement>,
-  map: ToneMapType,
+  map: ToneMapType
 ) => void
 
 export interface MusicKeyProps {
@@ -30,4 +30,11 @@ export interface MusicKeyProps {
   className?: string
   style?: {}
   children?: ReactNode | undefined
+}
+
+// Device Provider Types
+export type DeviceState = {
+  oscType: 'sine' | 'square' | 'triangle' | 'sawtooth'
+  toneUnisonWidth: number
+  volume: number
 }

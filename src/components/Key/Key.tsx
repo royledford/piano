@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from 'react'
+import { ReactElement, useMemo, useEffect, useState } from 'react'
 import KeyFull from './KeyFull'
 import KeySemi from './KeySemi'
 import { MusicKeyProps } from '@/Types'
@@ -10,10 +10,6 @@ type KeyProps = MusicKeyProps & {
 
 // Display a keyboard key
 export default function Key(props: KeyProps): ReactElement {
-  const temp = useMemo(() => {
-    return props.highlight ? 'blue' : 'red'
-  }, [])
-
   if (props.type === 'fullTone') {
     return (
       <KeyFull

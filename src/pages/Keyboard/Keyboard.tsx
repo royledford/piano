@@ -5,7 +5,8 @@ import Key from '@/components/Key/Key'
 import { toneMap } from '@/lib/utils'
 import { OnKeyHandler, ToneMapType } from '@/Types'
 import { useActx } from '@/providers/WebAudioProvider/webAudioProvider'
-
+import Button from '@components/Button/Button'
+import { CircleDot, AudioWaveform, MessageCircleQuestion } from 'lucide-react'
 import { useKeyboard } from '@/providers/keyboard-provider'
 
 export default function Keyboard() {
@@ -61,7 +62,19 @@ export default function Keyboard() {
       <div className="p-6 rounded-lg flex items-center justify-center bg-[#D5D1D0]">
         <div className="w-min">
           <div className="flex justify-center items-center border border-black border-b-0">
-            <KeyPower on={Boolean(actx)} onClick={() => {}} />
+            <div className="flex flex-col">
+              <div className="flex">
+                <Button>
+                  <AudioWaveform color="black" />
+                </Button>
+                <Button>T</Button>
+              </div>
+              <div className="flex">
+                <Button>T</Button>
+                <Button>T</Button>
+              </div>
+            </div>
+
             <Display />
           </div>
           <div className="w-min flex flex-row align-middle justify-center bg-white border border-black border-b-0">

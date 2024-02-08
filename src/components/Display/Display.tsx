@@ -1,5 +1,12 @@
-import { CircleDot } from 'lucide-react'
-import { PropsWithChildren } from 'react'
+import {
+  CircleDot,
+  AudioWaveform,
+  Keyboard,
+  MessageCircleQuestion,
+} from 'lucide-react'
+import { AudioWaveformSawtooth } from '@/components/Icons'
+
+import { PropsWithChildren, ReactElement } from 'react'
 
 // Display for keyboard
 export default function Display({
@@ -11,21 +18,21 @@ export default function Display({
       className={`${className ? className : ''} w-full h-[140px] bg-slate-950`}
     >
       <div className="flex flex-col h-full">
-        <div className="border-sky-200 border-2 w-[35px] h-[35px] flex justify-center items-center">
-          <CircleDot color="red" />
-        </div>
-        <div className="border-sky-200 border-2 w-[35px] h-[35px]"></div>
-        <div className="border-sky-200 border-2 w-[35px] h-[35px]"></div>
-        <div className="border-sky-200 border-2 w-[35px] h-[35px]"></div>
+        <IconDisplay render={<CircleDot color="red" />} />
+        <IconDisplay
+          render={<AudioWaveformSawtooth color="white" strokeWidth={1} />}
+        />
+        <IconDisplay render={<Keyboard color="white" />} />
+        <IconDisplay render={<MessageCircleQuestion color="white" />} />
       </div>
     </div>
   )
 }
 
-function IconDisplay({ children }: PropsWithChildren) {
+function IconDisplay({ render }: { render: ReactElement }) {
   return (
-    <div className="border-sky-200 border-2 w-[35px] h-[35px] flex justify-center items-center">
-      <CircleDot color="red" />
+    <div className="w-[35px] h-[35px] flex justify-center items-center p-2">
+      {render}
     </div>
   )
 }
