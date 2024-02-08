@@ -1,6 +1,6 @@
 import './App.css'
 import Keyboard from '@/pages/Keyboard/Keyboard'
-import { WebAudioProvider } from './providers/WebAudioProvider/webAudioProvider'
+import { WebAudioProvider } from './providers/web-audio-provider'
 import { KeyboardProvider } from './providers/keyboard-provider'
 import { DeviceProvider } from './providers/device-provider'
 

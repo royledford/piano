@@ -1,5 +1,5 @@
 import { createContext, useState, ReactNode, useContext } from 'react'
-import { useDevice } from '../device-provider'
+import { useDevice } from './device-provider'
 import { ToneMapType, DeviceOscType } from '@/Types'
 
 type Props = {
