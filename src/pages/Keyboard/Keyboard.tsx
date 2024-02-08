@@ -3,15 +3,19 @@ import Display from '@/components/Display/Display'
 import KeyPower from '@/components/KeyPower/KeyPower'
 import Key from '@/components/Key/Key'
 import { toneMap } from '@/lib/utils'
-import { OnKeyHandler, ToneMapType } from '@/Types'
+import { OnKeyHandler, DeviceActionTypes } from '@/Types'
 import { useActx } from '@/providers/web-audio-provider'
 import Button from '@components/Button/Button'
 import { CircleDot, AudioWaveform, MessageCircleQuestion } from 'lucide-react'
+import { AudioWaveformSine } from '@/components/Icons'
 import { useKeyboard } from '@/providers/keyboard-provider'
+import { useDevice } from '@/providers/device-provider'
 
 export default function Keyboard() {
   const [actx, play, stop] = useActx()
+  const { state, dispatch } = useDevice()
   const { pressedKeys, setPressedKeys } = useKeyboard()
+  console.log('state', state) // TODO: remove this
 
   // TODO: Fix how pressed keys works, just clean up and add helper functions
   const handleKeyPlay: OnKeyHandler = (e, map) => {
@@ -64,8 +68,12 @@ export default function Keyboard() {
           <div className="flex justify-center items-center border border-black border-b-0">
             <div className="flex flex-col">
               <div className="flex">
-                <Button>
-                  <AudioWaveform color="black" />
+                <Button
+                  onClick={() =>
+                    dispatch({ type: DeviceActionTypes.ToggleOscType })
+                  }
+                >
+                  <AudioWaveformSine color="black" strokeWidth={1} />
                 </Button>
                 <Button>T</Button>
               </div>

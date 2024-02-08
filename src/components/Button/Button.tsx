@@ -3,8 +3,8 @@ import { Button as ShadButton } from '@/components/ui/button'
 
 type ButtonProps = {
   onClick: ReactEventHandler<HTMLButtonElement>
-  className: string
-  style: object
+  className?: string
+  style?: object
 }
 
 // Display a full sized key

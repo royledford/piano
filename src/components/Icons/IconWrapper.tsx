@@ -1,7 +1,7 @@
 import type { HTMLAttributes, PropsWithChildren } from 'react'
 
 interface Props {
-  iconName: string
+  iconName?: string
   color?: string
   size?: number
   strokeWidth?: number
@@ -12,7 +12,7 @@ interface Props {
 export type IconProps = PropsWithChildren & Props
 
 export const IconWrapper = ({
-  iconName,
+  iconName = '',
   color = 'black',
   size = 24,
   strokeWidth = 2,
