@@ -33,8 +33,23 @@ export interface MusicKeyProps {
 }
 
 // Device Provider Types
+export type DeviceOscType = 'sine' | 'square' | 'triangle' | 'sawtooth'
 export type DeviceState = {
-  oscType: 'sine' | 'square' | 'triangle' | 'sawtooth'
+  oscType: DeviceOscType
   toneUnisonWidth: number
   volume: number
+}
+
+type ToggleOscTypeAction = { type: 'TOGGLE_OSC_TYPE' }
+type ToneUnisonWidthAction = { type: 'TONE_UNISON_WIDTH'; payload: number }
+type VolumeAction = { type: 'VOLUME'; payload: number }
+export type DeviceActions =
+  | ToggleOscTypeAction
+  | ToneUnisonWidthAction
+  | VolumeAction
+
+export enum DeviceActionTypes {
+  ToggleOscType = 'TOGGLE_OSC_TYPE',
+  ToneUnisonWidth = 'TONE_UNISON_WIDTH',
+  Volume = 'VOLUME',
 }
