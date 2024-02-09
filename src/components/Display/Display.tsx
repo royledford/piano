@@ -4,6 +4,8 @@ import {
   AudioWaveform,
   Keyboard,
   MessageCircleQuestion,
+  Music2,
+  Minus,
 } from 'lucide-react'
 import {
   AudioWaveformSine,
@@ -12,6 +14,7 @@ import {
   AudioWaveformSawtooth,
 } from '@/components/Icons'
 import { useDevice } from '@/providers/device-provider'
+import { useActx } from '@/providers/web-audio-provider'
 
 import { PropsWithChildren, ReactElement } from 'react'
 
@@ -21,6 +24,7 @@ export default function Display({
   children,
 }: PropsWithChildren<{ className: string }>) {
   const { state } = useDevice()
+  const [actx] = useActx()
 
   const oscDisplay = useMemo(() => {
     if (state.oscType === 'sine')
@@ -35,14 +39,24 @@ export default function Display({
     return <AudioWaveformSawtooth color="white" strokeWidth={1} />
   }, [state.oscType])
 
+  const keyDisplay = useMemo(() => {
+    if (state.keyDisplay === 'none')
+      return <Minus color="white" strokeWidth={1} />
+
+    if (state.keyDisplay === 'note')
+      return <Music2 color="white" strokeWidth={1} />
+
+    return <Keyboard color="white" strokeWidth={1} />
+  }, [state.keyDisplay])
+
   return (
     <div
       className={`${className ? className : ''} w-full h-[140px] bg-slate-950`}
     >
       <div className="flex flex-col h-full">
-        <IconDisplay render={<CircleDot color="red" />} />
+        <IconDisplay render={<CircleDot color={actx ? 'green' : 'red'} />} />
         <IconDisplay render={oscDisplay} />
-        <IconDisplay render={<Keyboard color="white" />} />
+        <IconDisplay render={keyDisplay} />
         <IconDisplay render={<MessageCircleQuestion color="white" />} />
       </div>
     </div>

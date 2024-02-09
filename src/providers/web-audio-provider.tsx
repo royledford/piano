@@ -17,7 +17,7 @@ type AudioType = any
 
 const WebAudioContext = createContext<AudioType>(undefined)
 
-// Define the provider that will be used to wrap in the app.
+// Define the provider.
 const WebAudioProvider = ({ children }: Props): AudioType => {
   const { state, dispatch } = useDevice()
   const [actx, setActx] = useState<any>()
@@ -49,6 +49,9 @@ const WebAudioProvider = ({ children }: Props): AudioType => {
   const stop = (tone: ToneMapType) => {
     const currentOsc = getOsc(oscs, tone)
     const remainingOsc = oscs.filter((v) => v.note !== tone.note)
+
+    // handle a case when the mouse is pressed, then dragged over a key, then let up
+    if (!currentOsc) return
 
     currentOsc.banks.forEach((o: any) => {
       o.stop()

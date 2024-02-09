@@ -3,22 +3,32 @@ import {
   DeviceActions,
   DeviceActionTypes,
   DeviceOscType,
+  DeviceKeyDisplayType,
 } from '@/Types'
 
 export const deviceInitState: DeviceState = {
   oscType: 'sine',
   toneUnisonWidth: 10,
   volume: 0.5,
+  keyDisplay: 'none',
+  display: 'wave',
 }
 
-// This provides a simple way to toggle to the next
-// available osc type based on the current osc type
+// Provide a simple way to handle toggling through multiple
+// states for specific items
 const oscTypeToggleMap: Record<DeviceOscType, DeviceOscType> = {
   sine: 'square',
   square: 'triangle',
   triangle: 'sawtooth',
   sawtooth: 'sine',
 }
+
+const keyDisplayToggleMap: Record<DeviceKeyDisplayType, DeviceKeyDisplayType> =
+  {
+    none: 'note',
+    note: 'key',
+    key: 'none',
+  }
 
 export function deviceReducer(
   state: DeviceState,
@@ -42,6 +52,18 @@ export function deviceReducer(
       return {
         ...state,
         volume: action.payload,
+      }
+    }
+    case DeviceActionTypes.ToggleKeyDisplay: {
+      return {
+        ...state,
+        keyDisplay: keyDisplayToggleMap[state.keyDisplay],
+      }
+    }
+    case DeviceActionTypes.SetDisplay: {
+      return {
+        ...state,
+        display: action.payload,
       }
     }
     default:

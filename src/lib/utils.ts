@@ -33,3 +33,24 @@ export const toneMap: Record<string, ToneMapType> = {
   Eb5: { note: 'Eb5', hertz: 622.25, keyboard: '', position: 'right' },
   E5: { note: 'E5', hertz: 659.25, keyboard: '' },
 }
+
+/**
+ * The base implementation of `_.clamp` which doesn't coerce arguments.
+ *
+ * @private
+ * @param {number} number The number to clamp.
+ * @param {number} [lower] The lower bound.
+ * @param {number} upper The upper bound.
+ * @returns {number} Returns the clamped number.
+ */
+export function clamp(number: number, lower: number, upper: number) {
+  if (number === number) {
+    if (upper !== undefined) {
+      number = number <= upper ? number : upper
+    }
+    if (lower !== undefined) {
+      number = number >= lower ? number : lower
+    }
+  }
+  return number
+}

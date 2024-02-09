@@ -34,22 +34,27 @@ export interface MusicKeyProps {
 
 // Device Provider Types
 export type DeviceOscType = 'sine' | 'square' | 'triangle' | 'sawtooth'
+export type DeviceKeyDisplayType = 'none' | 'note' | 'key'
+export type DeviceDisplayType = 'wave' | 'adsr'
 export type DeviceState = {
   oscType: DeviceOscType
   toneUnisonWidth: number
   volume: number
+  keyDisplay: DeviceKeyDisplayType
+  display: DeviceDisplayType
 }
 
-type ToggleOscTypeAction = { type: 'TOGGLE_OSC_TYPE' }
-type ToneUnisonWidthAction = { type: 'TONE_UNISON_WIDTH'; payload: number }
-type VolumeAction = { type: 'VOLUME'; payload: number }
 export type DeviceActions =
-  | ToggleOscTypeAction
-  | ToneUnisonWidthAction
-  | VolumeAction
+  | { type: 'TOGGLE_OSC_TYPE' }
+  | { type: 'TONE_UNISON_WIDTH'; payload: number }
+  | { type: 'VOLUME'; payload: number }
+  | { type: 'TOGGLE_KEY_DISPLAY' }
+  | { type: 'SET_DISPLAY'; payload: DeviceDisplayType }
 
 export enum DeviceActionTypes {
   ToggleOscType = 'TOGGLE_OSC_TYPE',
   ToneUnisonWidth = 'TONE_UNISON_WIDTH',
   Volume = 'VOLUME',
+  ToggleKeyDisplay = 'TOGGLE_KEY_DISPLAY',
+  SetDisplay = 'SET_DISPLAY',
 }

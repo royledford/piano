@@ -6,16 +6,16 @@ import { toneMap } from '@/lib/utils'
 import { OnKeyHandler, DeviceActionTypes } from '@/Types'
 import { useActx } from '@/providers/web-audio-provider'
 import Button from '@components/Button/Button'
-import { CircleDot, AudioWaveform, MessageCircleQuestion } from 'lucide-react'
-import { AudioWaveformSine } from '@/components/Icons'
+import { Keyboard as KeyboardIcon } from 'lucide-react'
+import { AudioWaveformSine, ADSR } from '@/components/Icons'
 import { useKeyboard } from '@/providers/keyboard-provider'
 import { useDevice } from '@/providers/device-provider'
+import { Knobs } from './Knobs'
 
 export default function Keyboard() {
   const [actx, play, stop] = useActx()
   const { state, dispatch } = useDevice()
   const { pressedKeys, setPressedKeys } = useKeyboard()
-  console.log('state', state) // TODO: remove this
 
   // TODO: Fix how pressed keys works, just clean up and add helper functions
   const handleKeyPlay: OnKeyHandler = (e, map) => {
@@ -75,15 +75,24 @@ export default function Keyboard() {
                 >
                   <AudioWaveformSine color="black" strokeWidth={1} />
                 </Button>
-                <Button>T</Button>
+                <Button
+                  onClick={() =>
+                    dispatch({ type: DeviceActionTypes.ToggleKeyDisplay })
+                  }
+                >
+                  <KeyboardIcon color="black" strokeWidth={1} />
+                </Button>
               </div>
               <div className="flex">
                 <Button>T</Button>
-                <Button>T</Button>
+                <Button>
+                  <ADSR strokeWidth={1} />
+                </Button>
               </div>
             </div>
 
             <Display />
+            <Knobs />
           </div>
           <div className="w-min flex flex-row align-middle justify-center bg-white border border-black border-b-0">
             {/* Create semi-tone keys */}
