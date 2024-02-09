@@ -6,7 +6,7 @@ import { toneMap } from '@/lib/utils'
 import { OnKeyHandler, DeviceActionTypes } from '@/Types'
 import { useActx } from '@/providers/web-audio-provider'
 import Button from '@components/Button/Button'
-import { Keyboard as KeyboardIcon } from 'lucide-react'
+import { Keyboard as KeyboardIcon, Tv } from 'lucide-react'
 import { AudioWaveformSine, ADSR } from '@/components/Icons'
 import { useKeyboard } from '@/providers/keyboard-provider'
 import { useDevice } from '@/providers/device-provider'
@@ -85,8 +85,12 @@ export default function Keyboard() {
               </div>
               <div className="flex">
                 <Button>T</Button>
-                <Button>
-                  <ADSR strokeWidth={1} />
+                <Button
+                  onClick={() =>
+                    dispatch({ type: DeviceActionTypes.ToggleDeviceDisplay })
+                  }
+                >
+                  <Tv strokeWidth={1} />
                 </Button>
               </div>
             </div>

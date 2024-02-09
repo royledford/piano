@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import {
   CircleDot,
-  AudioWaveform,
   Keyboard,
   MessageCircleQuestion,
   Music2,
@@ -13,10 +12,12 @@ import {
   AudioWaveformTriangle,
   AudioWaveformSawtooth,
 } from '@/components/Icons'
+import { DisplayWave } from './DisplayWave'
 import { useDevice } from '@/providers/device-provider'
 import { useActx } from '@/providers/web-audio-provider'
 
 import { PropsWithChildren, ReactElement } from 'react'
+import { DisplayADSR } from './ADSR/DisplayADSR'
 
 // Display for keyboard
 export default function Display({
@@ -51,7 +52,7 @@ export default function Display({
 
   return (
     <div
-      className={`${className ? className : ''} w-full h-[140px] bg-slate-950`}
+      className={`${className ? className : ''} flex w-full h-[140px] bg-slate-950`}
     >
       <div className="flex flex-col h-full">
         <IconDisplay render={<CircleDot color={actx ? 'green' : 'red'} />} />
@@ -59,6 +60,7 @@ export default function Display({
         <IconDisplay render={keyDisplay} />
         <IconDisplay render={<MessageCircleQuestion color="white" />} />
       </div>
+      {state.display === 'wave' ? <DisplayWave /> : <DisplayADSR />}
     </div>
   )
 }

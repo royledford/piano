@@ -42,6 +42,12 @@ export type DeviceState = {
   volume: number
   keyDisplay: DeviceKeyDisplayType
   display: DeviceDisplayType
+  adsr: {
+    attack: number
+    decay: number
+    sustain: number
+    release: number
+  }
 }
 
 export type DeviceActions =
@@ -49,12 +55,12 @@ export type DeviceActions =
   | { type: 'TONE_UNISON_WIDTH'; payload: number }
   | { type: 'VOLUME'; payload: number }
   | { type: 'TOGGLE_KEY_DISPLAY' }
-  | { type: 'SET_DISPLAY'; payload: DeviceDisplayType }
+  | { type: 'TOGGLE_DEVICE_DISPLAY' }
 
 export enum DeviceActionTypes {
   ToggleOscType = 'TOGGLE_OSC_TYPE',
   ToneUnisonWidth = 'TONE_UNISON_WIDTH',
   Volume = 'VOLUME',
   ToggleKeyDisplay = 'TOGGLE_KEY_DISPLAY',
-  SetDisplay = 'SET_DISPLAY',
+  ToggleDeviceDisplay = 'TOGGLE_DEVICE_DISPLAY',
 }

@@ -4,6 +4,7 @@ import {
   DeviceActionTypes,
   DeviceOscType,
   DeviceKeyDisplayType,
+  DeviceDisplayType,
 } from '@/Types'
 
 export const deviceInitState: DeviceState = {
@@ -11,7 +12,13 @@ export const deviceInitState: DeviceState = {
   toneUnisonWidth: 10,
   volume: 0.5,
   keyDisplay: 'none',
-  display: 'wave',
+  display: 'adsr',
+  adsr: {
+    attack: 0.2,
+    decay: 0.2,
+    sustain: 0.7,
+    release: 0.6,
+  },
 }
 
 // Provide a simple way to handle toggling through multiple
@@ -29,6 +36,11 @@ const keyDisplayToggleMap: Record<DeviceKeyDisplayType, DeviceKeyDisplayType> =
     note: 'key',
     key: 'none',
   }
+
+const displayToggleMap: Record<DeviceDisplayType, DeviceDisplayType> = {
+  wave: 'adsr',
+  adsr: 'wave',
+}
 
 export function deviceReducer(
   state: DeviceState,
@@ -60,10 +72,10 @@ export function deviceReducer(
         keyDisplay: keyDisplayToggleMap[state.keyDisplay],
       }
     }
-    case DeviceActionTypes.SetDisplay: {
+    case DeviceActionTypes.ToggleDeviceDisplay: {
       return {
         ...state,
-        display: action.payload,
+        display: displayToggleMap[state.display],
       }
     }
     default:
