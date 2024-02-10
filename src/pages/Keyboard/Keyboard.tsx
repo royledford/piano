@@ -84,7 +84,7 @@ export default function Keyboard() {
                 </Button>
               </div>
               <div className="flex">
-                <Button>T</Button>
+                <Button onClick={() => {}}>T</Button>
                 <Button
                   onClick={() =>
                     dispatch({ type: DeviceActionTypes.ToggleDeviceDisplay })

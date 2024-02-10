@@ -23,7 +23,7 @@ import { DisplayADSR } from './ADSR/DisplayADSR'
 export default function Display({
   className,
   children,
-}: PropsWithChildren<{ className: string }>) {
+}: PropsWithChildren<{ className?: string }>) {
   const { state } = useDevice()
   const [actx] = useActx()
 
