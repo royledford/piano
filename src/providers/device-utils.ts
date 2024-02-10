@@ -60,24 +60,68 @@ export function deviceReducer(
         toneUnisonWidth: action.payload,
       }
     }
+
     case DeviceActionTypes.Volume: {
       return {
         ...state,
         volume: action.payload,
       }
     }
+
     case DeviceActionTypes.ToggleKeyDisplay: {
       return {
         ...state,
         keyDisplay: keyDisplayToggleMap[state.keyDisplay],
       }
     }
+
     case DeviceActionTypes.ToggleDeviceDisplay: {
       return {
         ...state,
         display: displayToggleMap[state.display],
       }
     }
+
+    case DeviceActionTypes.SetAttack: {
+      return {
+        ...state,
+        adsr: {
+          ...state.adsr,
+          attack: action.payload,
+        },
+      }
+    }
+
+    case DeviceActionTypes.SetDecay: {
+      return {
+        ...state,
+        adsr: {
+          ...state.adsr,
+          decay: action.payload,
+        },
+      }
+    }
+
+    case DeviceActionTypes.SetSustain: {
+      return {
+        ...state,
+        adsr: {
+          ...state.adsr,
+          sustain: action.payload,
+        },
+      }
+    }
+
+    case DeviceActionTypes.SetRelease: {
+      return {
+        ...state,
+        adsr: {
+          ...state.adsr,
+          release: action.payload,
+        },
+      }
+    }
+
     default:
       throw new Error(
         `Unhandled Action: ACTION ${action.type} is not a valid action for Device Reducer`

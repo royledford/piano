@@ -56,6 +56,10 @@ export type DeviceActions =
   | { type: 'VOLUME'; payload: number }
   | { type: 'TOGGLE_KEY_DISPLAY' }
   | { type: 'TOGGLE_DEVICE_DISPLAY' }
+  | { type: 'SET_ATTACK'; payload: number }
+  | { type: 'SET_DECAY'; payload: number }
+  | { type: 'SET_SUSTAIN'; payload: number }
+  | { type: 'SET_RELEASE'; payload: number }
 
 export enum DeviceActionTypes {
   ToggleOscType = 'TOGGLE_OSC_TYPE',
@@ -63,4 +67,8 @@ export enum DeviceActionTypes {
   Volume = 'VOLUME',
   ToggleKeyDisplay = 'TOGGLE_KEY_DISPLAY',
   ToggleDeviceDisplay = 'TOGGLE_DEVICE_DISPLAY',
+  SetAttack = 'SET_ATTACK',
+  SetDecay = 'SET_DECAY',
+  SetSustain = 'SET_SUSTAIN',
+  SetRelease = 'SET_RELEASE',
 }
