@@ -3,6 +3,7 @@ import { Button as ShadButton } from '@/components/ui/button'
 import { MusicKeyProps, KeySemitonePosition } from '@/Types'
 import { useKeyboard } from '@/providers/keyboard-provider'
 import { isPressed } from './key-utils'
+import { useDevice } from '@/providers/device-provider'
 
 // Display a full sized key
 export default function KeySemi({
@@ -22,7 +23,6 @@ export default function KeySemi({
     if (position === 'left') return 'justify-end'
     return 'justify-start'
   }, [position])
-  const flexPosition = position === 'center' ? 'w-[70px]' : 'w-[105px]'
 
   const styles = {
     normal: {
@@ -43,7 +43,7 @@ export default function KeySemi({
       down: 'shadow-[-3px_-3px_3px_#f55731,3px_3px_3px_#b54125]',
     },
   }
-
+  const { state } = useDevice()
   const { pressedKeys } = useKeyboard()
 
   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -57,7 +57,11 @@ export default function KeySemi({
   const selectedColor = highlight ? styles.highlight : styles.normal
   const keyDown = isPressed(pressedKeys, tone.note) ? selectedColor.down : ''
 
-  const display = useMemo(() => tone.keyboard, [])
+  const display = useMemo(() => {
+    if (state.keyDisplay === 'none') return null
+    if (state.keyDisplay === 'key') return tone.keyboard
+    return tone.note
+  }, [state.keyDisplay])
 
   return (
     <ShadButton
@@ -66,16 +70,19 @@ export default function KeySemi({
       onClick={onClick}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
-      tabIndex={-1}>
+      tabIndex={-1}
+    >
       <div
-        className={`${selectedColor.hover} ${selectedColor.bgColor} ${keyFlexPosition} overflow-hidden flex items-center p-[12px] h-full w-full rounded-sm`}>
+        className={`${selectedColor.hover} ${selectedColor.bgColor} ${keyFlexPosition} overflow-hidden flex items-center p-[12px] h-full w-full rounded-sm`}
+      >
         <div
           className={`${selectedColor.bgColor}
           ${selectedColor.dropShadow}
           ${selectedColor.pressed}
           ${selectedColor.border}
           ${keyDown}
-          border bg-black rounded-full flex justify-center items-center h-full w-[42px]`}>
+          border bg-black rounded-full flex justify-center items-center h-full w-[42px]`}
+        >
           {display}
         </div>
       </div>
